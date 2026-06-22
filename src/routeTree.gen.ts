@@ -17,6 +17,10 @@ import { Route as AuthenticatedMercadoVgvRouteImport } from './routes/_authentic
 import { Route as AuthenticatedMercadoVendasRouteImport } from './routes/_authenticated/mercado.vendas'
 import { Route as AuthenticatedMercadoObrasRouteImport } from './routes/_authenticated/mercado.obras'
 import { Route as AuthenticatedMercadoEstoqueRouteImport } from './routes/_authenticated/mercado.estoque'
+import { Route as AuthenticatedFinanceiroRentabilidadeRouteImport } from './routes/_authenticated/financeiro.rentabilidade'
+import { Route as AuthenticatedFinanceiroLiquidezRouteImport } from './routes/_authenticated/financeiro.liquidez'
+import { Route as AuthenticatedFinanceiroFluxoRouteImport } from './routes/_authenticated/financeiro.fluxo'
+import { Route as AuthenticatedFinanceiroBalancoRouteImport } from './routes/_authenticated/financeiro.balanco'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -60,11 +64,39 @@ const AuthenticatedMercadoEstoqueRoute =
     path: '/mercado/estoque',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedFinanceiroRentabilidadeRoute =
+  AuthenticatedFinanceiroRentabilidadeRouteImport.update({
+    id: '/financeiro/rentabilidade',
+    path: '/financeiro/rentabilidade',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceiroLiquidezRoute =
+  AuthenticatedFinanceiroLiquidezRouteImport.update({
+    id: '/financeiro/liquidez',
+    path: '/financeiro/liquidez',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceiroFluxoRoute =
+  AuthenticatedFinanceiroFluxoRouteImport.update({
+    id: '/financeiro/fluxo',
+    path: '/financeiro/fluxo',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceiroBalancoRoute =
+  AuthenticatedFinanceiroBalancoRouteImport.update({
+    id: '/financeiro/balanco',
+    path: '/financeiro/balanco',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/overview': typeof AuthenticatedOverviewRoute
+  '/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
+  '/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
+  '/financeiro/liquidez': typeof AuthenticatedFinanceiroLiquidezRoute
+  '/financeiro/rentabilidade': typeof AuthenticatedFinanceiroRentabilidadeRoute
   '/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
   '/mercado/obras': typeof AuthenticatedMercadoObrasRoute
   '/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
@@ -74,6 +106,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/overview': typeof AuthenticatedOverviewRoute
+  '/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
+  '/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
+  '/financeiro/liquidez': typeof AuthenticatedFinanceiroLiquidezRoute
+  '/financeiro/rentabilidade': typeof AuthenticatedFinanceiroRentabilidadeRoute
   '/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
   '/mercado/obras': typeof AuthenticatedMercadoObrasRoute
   '/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
@@ -85,6 +121,10 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/overview': typeof AuthenticatedOverviewRoute
+  '/_authenticated/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
+  '/_authenticated/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
+  '/_authenticated/financeiro/liquidez': typeof AuthenticatedFinanceiroLiquidezRoute
+  '/_authenticated/financeiro/rentabilidade': typeof AuthenticatedFinanceiroRentabilidadeRoute
   '/_authenticated/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
   '/_authenticated/mercado/obras': typeof AuthenticatedMercadoObrasRoute
   '/_authenticated/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
@@ -96,6 +136,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/overview'
+    | '/financeiro/balanco'
+    | '/financeiro/fluxo'
+    | '/financeiro/liquidez'
+    | '/financeiro/rentabilidade'
     | '/mercado/estoque'
     | '/mercado/obras'
     | '/mercado/vendas'
@@ -105,6 +149,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/overview'
+    | '/financeiro/balanco'
+    | '/financeiro/fluxo'
+    | '/financeiro/liquidez'
+    | '/financeiro/rentabilidade'
     | '/mercado/estoque'
     | '/mercado/obras'
     | '/mercado/vendas'
@@ -115,6 +163,10 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/overview'
+    | '/_authenticated/financeiro/balanco'
+    | '/_authenticated/financeiro/fluxo'
+    | '/_authenticated/financeiro/liquidez'
+    | '/_authenticated/financeiro/rentabilidade'
     | '/_authenticated/mercado/estoque'
     | '/_authenticated/mercado/obras'
     | '/_authenticated/mercado/vendas'
@@ -185,11 +237,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMercadoEstoqueRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/financeiro/rentabilidade': {
+      id: '/_authenticated/financeiro/rentabilidade'
+      path: '/financeiro/rentabilidade'
+      fullPath: '/financeiro/rentabilidade'
+      preLoaderRoute: typeof AuthenticatedFinanceiroRentabilidadeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/financeiro/liquidez': {
+      id: '/_authenticated/financeiro/liquidez'
+      path: '/financeiro/liquidez'
+      fullPath: '/financeiro/liquidez'
+      preLoaderRoute: typeof AuthenticatedFinanceiroLiquidezRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/financeiro/fluxo': {
+      id: '/_authenticated/financeiro/fluxo'
+      path: '/financeiro/fluxo'
+      fullPath: '/financeiro/fluxo'
+      preLoaderRoute: typeof AuthenticatedFinanceiroFluxoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/financeiro/balanco': {
+      id: '/_authenticated/financeiro/balanco'
+      path: '/financeiro/balanco'
+      fullPath: '/financeiro/balanco'
+      preLoaderRoute: typeof AuthenticatedFinanceiroBalancoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedOverviewRoute: typeof AuthenticatedOverviewRoute
+  AuthenticatedFinanceiroBalancoRoute: typeof AuthenticatedFinanceiroBalancoRoute
+  AuthenticatedFinanceiroFluxoRoute: typeof AuthenticatedFinanceiroFluxoRoute
+  AuthenticatedFinanceiroLiquidezRoute: typeof AuthenticatedFinanceiroLiquidezRoute
+  AuthenticatedFinanceiroRentabilidadeRoute: typeof AuthenticatedFinanceiroRentabilidadeRoute
   AuthenticatedMercadoEstoqueRoute: typeof AuthenticatedMercadoEstoqueRoute
   AuthenticatedMercadoObrasRoute: typeof AuthenticatedMercadoObrasRoute
   AuthenticatedMercadoVendasRoute: typeof AuthenticatedMercadoVendasRoute
@@ -198,6 +282,11 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOverviewRoute: AuthenticatedOverviewRoute,
+  AuthenticatedFinanceiroBalancoRoute: AuthenticatedFinanceiroBalancoRoute,
+  AuthenticatedFinanceiroFluxoRoute: AuthenticatedFinanceiroFluxoRoute,
+  AuthenticatedFinanceiroLiquidezRoute: AuthenticatedFinanceiroLiquidezRoute,
+  AuthenticatedFinanceiroRentabilidadeRoute:
+    AuthenticatedFinanceiroRentabilidadeRoute,
   AuthenticatedMercadoEstoqueRoute: AuthenticatedMercadoEstoqueRoute,
   AuthenticatedMercadoObrasRoute: AuthenticatedMercadoObrasRoute,
   AuthenticatedMercadoVendasRoute: AuthenticatedMercadoVendasRoute,
