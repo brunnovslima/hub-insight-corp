@@ -9,38 +9,140 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedOverviewRouteImport } from './routes/_authenticated/overview'
+import { Route as AuthenticatedMercadoVgvRouteImport } from './routes/_authenticated/mercado.vgv'
+import { Route as AuthenticatedMercadoVendasRouteImport } from './routes/_authenticated/mercado.vendas'
+import { Route as AuthenticatedMercadoObrasRouteImport } from './routes/_authenticated/mercado.obras'
+import { Route as AuthenticatedMercadoEstoqueRouteImport } from './routes/_authenticated/mercado.estoque'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedOverviewRoute = AuthenticatedOverviewRouteImport.update({
+  id: '/overview',
+  path: '/overview',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMercadoVgvRoute = AuthenticatedMercadoVgvRouteImport.update({
+  id: '/mercado/vgv',
+  path: '/mercado/vgv',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMercadoVendasRoute =
+  AuthenticatedMercadoVendasRouteImport.update({
+    id: '/mercado/vendas',
+    path: '/mercado/vendas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMercadoObrasRoute =
+  AuthenticatedMercadoObrasRouteImport.update({
+    id: '/mercado/obras',
+    path: '/mercado/obras',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMercadoEstoqueRoute =
+  AuthenticatedMercadoEstoqueRouteImport.update({
+    id: '/mercado/estoque',
+    path: '/mercado/estoque',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/overview': typeof AuthenticatedOverviewRoute
+  '/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
+  '/mercado/obras': typeof AuthenticatedMercadoObrasRoute
+  '/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
+  '/mercado/vgv': typeof AuthenticatedMercadoVgvRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/overview': typeof AuthenticatedOverviewRoute
+  '/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
+  '/mercado/obras': typeof AuthenticatedMercadoObrasRoute
+  '/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
+  '/mercado/vgv': typeof AuthenticatedMercadoVgvRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/overview': typeof AuthenticatedOverviewRoute
+  '/_authenticated/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
+  '/_authenticated/mercado/obras': typeof AuthenticatedMercadoObrasRoute
+  '/_authenticated/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
+  '/_authenticated/mercado/vgv': typeof AuthenticatedMercadoVgvRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/overview'
+    | '/mercado/estoque'
+    | '/mercado/obras'
+    | '/mercado/vendas'
+    | '/mercado/vgv'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/overview'
+    | '/mercado/estoque'
+    | '/mercado/obras'
+    | '/mercado/vendas'
+    | '/mercado/vgv'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/overview'
+    | '/_authenticated/mercado/estoque'
+    | '/_authenticated/mercado/obras'
+    | '/_authenticated/mercado/vendas'
+    | '/_authenticated/mercado/vgv'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +150,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/overview': {
+      id: '/_authenticated/overview'
+      path: '/overview'
+      fullPath: '/overview'
+      preLoaderRoute: typeof AuthenticatedOverviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mercado/vgv': {
+      id: '/_authenticated/mercado/vgv'
+      path: '/mercado/vgv'
+      fullPath: '/mercado/vgv'
+      preLoaderRoute: typeof AuthenticatedMercadoVgvRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mercado/vendas': {
+      id: '/_authenticated/mercado/vendas'
+      path: '/mercado/vendas'
+      fullPath: '/mercado/vendas'
+      preLoaderRoute: typeof AuthenticatedMercadoVendasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mercado/obras': {
+      id: '/_authenticated/mercado/obras'
+      path: '/mercado/obras'
+      fullPath: '/mercado/obras'
+      preLoaderRoute: typeof AuthenticatedMercadoObrasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mercado/estoque': {
+      id: '/_authenticated/mercado/estoque'
+      path: '/mercado/estoque'
+      fullPath: '/mercado/estoque'
+      preLoaderRoute: typeof AuthenticatedMercadoEstoqueRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedOverviewRoute: typeof AuthenticatedOverviewRoute
+  AuthenticatedMercadoEstoqueRoute: typeof AuthenticatedMercadoEstoqueRoute
+  AuthenticatedMercadoObrasRoute: typeof AuthenticatedMercadoObrasRoute
+  AuthenticatedMercadoVendasRoute: typeof AuthenticatedMercadoVendasRoute
+  AuthenticatedMercadoVgvRoute: typeof AuthenticatedMercadoVgvRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedOverviewRoute: AuthenticatedOverviewRoute,
+  AuthenticatedMercadoEstoqueRoute: AuthenticatedMercadoEstoqueRoute,
+  AuthenticatedMercadoObrasRoute: AuthenticatedMercadoObrasRoute,
+  AuthenticatedMercadoVendasRoute: AuthenticatedMercadoVendasRoute,
+  AuthenticatedMercadoVgvRoute: AuthenticatedMercadoVgvRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
