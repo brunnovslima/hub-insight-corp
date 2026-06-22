@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Wallet, ArrowDown, ArrowUp, Flame, Timer } from "lucide-react";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
 import { KpiCard } from "@/components/kpi-card";
@@ -73,7 +73,7 @@ function Page() {
                   <YAxis className="text-xs" tickFormatter={(v) => formatBRL(v, { compact: true })} />
                   <Tooltip formatter={(v: number) => formatBRL(v)} contentStyle={{ background: "var(--card)", border: "1px solid var(--border)" }} />
                   <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
-                    {waterfall.map((d, i) => (<Wallet key={i} fill={d.valor >= 0 ? "var(--success)" : "var(--destructive)"} />))}
+                    {waterfall.map((d, i) => (<Cell key={i} fill={d.valor >= 0 ? "var(--success)" : "var(--destructive)"} />))}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
