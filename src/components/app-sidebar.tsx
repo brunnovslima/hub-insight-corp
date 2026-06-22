@@ -40,7 +40,7 @@ interface NavItem {
 }
 
 const overview: NavItem[] = [
-  { title: "Visão Geral", url: "/", icon: LayoutDashboard, roles: ["admin", "diretor", "analista", "gestor_obra"] },
+  { title: "Visão Geral", url: "/overview", icon: LayoutDashboard, roles: ["admin", "diretor", "analista", "gestor_obra"] },
 ];
 
 const mercado: NavItem[] = [
@@ -72,7 +72,7 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
 
-  const isActive = (url: string) => (url === "/" ? currentPath === "/" : currentPath.startsWith(url));
+  const isActive = (url: string) => currentPath === url || currentPath.startsWith(url + "/");
 
   const renderGroup = (label: string, items: NavItem[]) => {
     const visible = items.filter((i) => canAccess(roles, i.roles));
