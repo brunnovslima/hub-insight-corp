@@ -6,7 +6,6 @@ import { Send, Bot, User, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { sendChatMessage } from "@/lib/chat.functions";
@@ -73,7 +72,7 @@ function ChatThread() {
 
   return (
     <div className="h-full flex flex-col border border-border rounded-lg bg-card overflow-hidden">
-      <ScrollArea className="flex-1" viewportRef={scrollRef as unknown as React.RefObject<HTMLDivElement>}>
+      <div ref={scrollRef} className="flex-1 overflow-y-auto">
         <div className="p-4 space-y-4 max-w-3xl mx-auto">
           {isEmpty && (
             <div className="text-center py-8">
@@ -105,7 +104,7 @@ function ChatThread() {
             </div>
           )}
         </div>
-      </ScrollArea>
+      </div>
       <div className="border-t border-border p-3 bg-background/40">
         <div className="max-w-3xl mx-auto flex gap-2 items-end">
           <Textarea
