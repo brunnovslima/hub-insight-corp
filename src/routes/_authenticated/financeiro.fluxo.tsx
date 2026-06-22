@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Wallet, ArrowDown, ArrowUp, Flame, Timer } from "lucide-react";
+import { ArrowDown, ArrowUp, Flame, Timer, Wallet } from "lucide-react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -50,8 +50,13 @@ function Page() {
       <PageHeader title="Fluxo de Caixa" description="Entradas, saídas, queima e projeção" />
       <Card className="bg-[var(--gradient-primary)] text-primary-foreground border-0">
         <CardContent className="p-6">
-          <p className="text-sm text-primary-foreground/70 uppercase tracking-wider">Saldo de Caixa Atual</p>
-          <p className="text-4xl font-bold mt-1">{formatBRL(caixa)}</p>
+          <div className="flex items-center gap-3">
+            <div className="h-12 w-12 rounded-md bg-gold/20 flex items-center justify-center"><Wallet className="h-6 w-6 text-gold" /></div>
+            <div>
+              <p className="text-sm text-primary-foreground/70 uppercase tracking-wider">Saldo de Caixa Atual</p>
+              <p className="text-4xl font-bold mt-1">{formatBRL(caixa)}</p>
+            </div>
+          </div>
         </CardContent>
       </Card>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
