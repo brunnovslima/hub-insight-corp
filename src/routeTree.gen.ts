@@ -9,38 +9,240 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedOverviewRouteImport } from './routes/_authenticated/overview'
+import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
+import { Route as AuthenticatedChatRouteImport } from './routes/_authenticated/chat'
+import { Route as AuthenticatedChatIndexRouteImport } from './routes/_authenticated/chat.index'
+import { Route as AuthenticatedMercadoVgvRouteImport } from './routes/_authenticated/mercado.vgv'
+import { Route as AuthenticatedMercadoVendasRouteImport } from './routes/_authenticated/mercado.vendas'
+import { Route as AuthenticatedMercadoObrasRouteImport } from './routes/_authenticated/mercado.obras'
+import { Route as AuthenticatedMercadoEstoqueRouteImport } from './routes/_authenticated/mercado.estoque'
+import { Route as AuthenticatedFinanceiroRentabilidadeRouteImport } from './routes/_authenticated/financeiro.rentabilidade'
+import { Route as AuthenticatedFinanceiroLiquidezRouteImport } from './routes/_authenticated/financeiro.liquidez'
+import { Route as AuthenticatedFinanceiroFluxoRouteImport } from './routes/_authenticated/financeiro.fluxo'
+import { Route as AuthenticatedFinanceiroBalancoRouteImport } from './routes/_authenticated/financeiro.balanco'
+import { Route as AuthenticatedChatThreadIdRouteImport } from './routes/_authenticated/chat.$threadId'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedOverviewRoute = AuthenticatedOverviewRouteImport.update({
+  id: '/overview',
+  path: '/overview',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedConfiguracoesRoute =
+  AuthenticatedConfiguracoesRouteImport.update({
+    id: '/configuracoes',
+    path: '/configuracoes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedChatRoute = AuthenticatedChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedChatIndexRoute = AuthenticatedChatIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedChatRoute,
+} as any)
+const AuthenticatedMercadoVgvRoute = AuthenticatedMercadoVgvRouteImport.update({
+  id: '/mercado/vgv',
+  path: '/mercado/vgv',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMercadoVendasRoute =
+  AuthenticatedMercadoVendasRouteImport.update({
+    id: '/mercado/vendas',
+    path: '/mercado/vendas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMercadoObrasRoute =
+  AuthenticatedMercadoObrasRouteImport.update({
+    id: '/mercado/obras',
+    path: '/mercado/obras',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMercadoEstoqueRoute =
+  AuthenticatedMercadoEstoqueRouteImport.update({
+    id: '/mercado/estoque',
+    path: '/mercado/estoque',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceiroRentabilidadeRoute =
+  AuthenticatedFinanceiroRentabilidadeRouteImport.update({
+    id: '/financeiro/rentabilidade',
+    path: '/financeiro/rentabilidade',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceiroLiquidezRoute =
+  AuthenticatedFinanceiroLiquidezRouteImport.update({
+    id: '/financeiro/liquidez',
+    path: '/financeiro/liquidez',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceiroFluxoRoute =
+  AuthenticatedFinanceiroFluxoRouteImport.update({
+    id: '/financeiro/fluxo',
+    path: '/financeiro/fluxo',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceiroBalancoRoute =
+  AuthenticatedFinanceiroBalancoRouteImport.update({
+    id: '/financeiro/balanco',
+    path: '/financeiro/balanco',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedChatThreadIdRoute =
+  AuthenticatedChatThreadIdRouteImport.update({
+    id: '/$threadId',
+    path: '/$threadId',
+    getParentRoute: () => AuthenticatedChatRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/chat': typeof AuthenticatedChatRouteWithChildren
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/overview': typeof AuthenticatedOverviewRoute
+  '/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
+  '/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
+  '/financeiro/liquidez': typeof AuthenticatedFinanceiroLiquidezRoute
+  '/financeiro/rentabilidade': typeof AuthenticatedFinanceiroRentabilidadeRoute
+  '/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
+  '/mercado/obras': typeof AuthenticatedMercadoObrasRoute
+  '/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
+  '/mercado/vgv': typeof AuthenticatedMercadoVgvRoute
+  '/chat/': typeof AuthenticatedChatIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/overview': typeof AuthenticatedOverviewRoute
+  '/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
+  '/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
+  '/financeiro/liquidez': typeof AuthenticatedFinanceiroLiquidezRoute
+  '/financeiro/rentabilidade': typeof AuthenticatedFinanceiroRentabilidadeRoute
+  '/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
+  '/mercado/obras': typeof AuthenticatedMercadoObrasRoute
+  '/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
+  '/mercado/vgv': typeof AuthenticatedMercadoVgvRoute
+  '/chat': typeof AuthenticatedChatIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/chat': typeof AuthenticatedChatRouteWithChildren
+  '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/_authenticated/overview': typeof AuthenticatedOverviewRoute
+  '/_authenticated/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/_authenticated/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
+  '/_authenticated/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
+  '/_authenticated/financeiro/liquidez': typeof AuthenticatedFinanceiroLiquidezRoute
+  '/_authenticated/financeiro/rentabilidade': typeof AuthenticatedFinanceiroRentabilidadeRoute
+  '/_authenticated/mercado/estoque': typeof AuthenticatedMercadoEstoqueRoute
+  '/_authenticated/mercado/obras': typeof AuthenticatedMercadoObrasRoute
+  '/_authenticated/mercado/vendas': typeof AuthenticatedMercadoVendasRoute
+  '/_authenticated/mercado/vgv': typeof AuthenticatedMercadoVgvRoute
+  '/_authenticated/chat/': typeof AuthenticatedChatIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/chat'
+    | '/configuracoes'
+    | '/overview'
+    | '/chat/$threadId'
+    | '/financeiro/balanco'
+    | '/financeiro/fluxo'
+    | '/financeiro/liquidez'
+    | '/financeiro/rentabilidade'
+    | '/mercado/estoque'
+    | '/mercado/obras'
+    | '/mercado/vendas'
+    | '/mercado/vgv'
+    | '/chat/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/configuracoes'
+    | '/overview'
+    | '/chat/$threadId'
+    | '/financeiro/balanco'
+    | '/financeiro/fluxo'
+    | '/financeiro/liquidez'
+    | '/financeiro/rentabilidade'
+    | '/mercado/estoque'
+    | '/mercado/obras'
+    | '/mercado/vendas'
+    | '/mercado/vgv'
+    | '/chat'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/chat'
+    | '/_authenticated/configuracoes'
+    | '/_authenticated/overview'
+    | '/_authenticated/chat/$threadId'
+    | '/_authenticated/financeiro/balanco'
+    | '/_authenticated/financeiro/fluxo'
+    | '/_authenticated/financeiro/liquidez'
+    | '/_authenticated/financeiro/rentabilidade'
+    | '/_authenticated/mercado/estoque'
+    | '/_authenticated/mercado/obras'
+    | '/_authenticated/mercado/vendas'
+    | '/_authenticated/mercado/vgv'
+    | '/_authenticated/chat/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +250,150 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/overview': {
+      id: '/_authenticated/overview'
+      path: '/overview'
+      fullPath: '/overview'
+      preLoaderRoute: typeof AuthenticatedOverviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/configuracoes': {
+      id: '/_authenticated/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chat': {
+      id: '/_authenticated/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof AuthenticatedChatRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chat/': {
+      id: '/_authenticated/chat/'
+      path: '/'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof AuthenticatedChatIndexRouteImport
+      parentRoute: typeof AuthenticatedChatRoute
+    }
+    '/_authenticated/mercado/vgv': {
+      id: '/_authenticated/mercado/vgv'
+      path: '/mercado/vgv'
+      fullPath: '/mercado/vgv'
+      preLoaderRoute: typeof AuthenticatedMercadoVgvRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mercado/vendas': {
+      id: '/_authenticated/mercado/vendas'
+      path: '/mercado/vendas'
+      fullPath: '/mercado/vendas'
+      preLoaderRoute: typeof AuthenticatedMercadoVendasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mercado/obras': {
+      id: '/_authenticated/mercado/obras'
+      path: '/mercado/obras'
+      fullPath: '/mercado/obras'
+      preLoaderRoute: typeof AuthenticatedMercadoObrasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mercado/estoque': {
+      id: '/_authenticated/mercado/estoque'
+      path: '/mercado/estoque'
+      fullPath: '/mercado/estoque'
+      preLoaderRoute: typeof AuthenticatedMercadoEstoqueRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/financeiro/rentabilidade': {
+      id: '/_authenticated/financeiro/rentabilidade'
+      path: '/financeiro/rentabilidade'
+      fullPath: '/financeiro/rentabilidade'
+      preLoaderRoute: typeof AuthenticatedFinanceiroRentabilidadeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/financeiro/liquidez': {
+      id: '/_authenticated/financeiro/liquidez'
+      path: '/financeiro/liquidez'
+      fullPath: '/financeiro/liquidez'
+      preLoaderRoute: typeof AuthenticatedFinanceiroLiquidezRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/financeiro/fluxo': {
+      id: '/_authenticated/financeiro/fluxo'
+      path: '/financeiro/fluxo'
+      fullPath: '/financeiro/fluxo'
+      preLoaderRoute: typeof AuthenticatedFinanceiroFluxoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/financeiro/balanco': {
+      id: '/_authenticated/financeiro/balanco'
+      path: '/financeiro/balanco'
+      fullPath: '/financeiro/balanco'
+      preLoaderRoute: typeof AuthenticatedFinanceiroBalancoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chat/$threadId': {
+      id: '/_authenticated/chat/$threadId'
+      path: '/$threadId'
+      fullPath: '/chat/$threadId'
+      preLoaderRoute: typeof AuthenticatedChatThreadIdRouteImport
+      parentRoute: typeof AuthenticatedChatRoute
+    }
   }
 }
 
+interface AuthenticatedChatRouteChildren {
+  AuthenticatedChatThreadIdRoute: typeof AuthenticatedChatThreadIdRoute
+  AuthenticatedChatIndexRoute: typeof AuthenticatedChatIndexRoute
+}
+
+const AuthenticatedChatRouteChildren: AuthenticatedChatRouteChildren = {
+  AuthenticatedChatThreadIdRoute: AuthenticatedChatThreadIdRoute,
+  AuthenticatedChatIndexRoute: AuthenticatedChatIndexRoute,
+}
+
+const AuthenticatedChatRouteWithChildren =
+  AuthenticatedChatRoute._addFileChildren(AuthenticatedChatRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedChatRoute: typeof AuthenticatedChatRouteWithChildren
+  AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRoute
+  AuthenticatedOverviewRoute: typeof AuthenticatedOverviewRoute
+  AuthenticatedFinanceiroBalancoRoute: typeof AuthenticatedFinanceiroBalancoRoute
+  AuthenticatedFinanceiroFluxoRoute: typeof AuthenticatedFinanceiroFluxoRoute
+  AuthenticatedFinanceiroLiquidezRoute: typeof AuthenticatedFinanceiroLiquidezRoute
+  AuthenticatedFinanceiroRentabilidadeRoute: typeof AuthenticatedFinanceiroRentabilidadeRoute
+  AuthenticatedMercadoEstoqueRoute: typeof AuthenticatedMercadoEstoqueRoute
+  AuthenticatedMercadoObrasRoute: typeof AuthenticatedMercadoObrasRoute
+  AuthenticatedMercadoVendasRoute: typeof AuthenticatedMercadoVendasRoute
+  AuthenticatedMercadoVgvRoute: typeof AuthenticatedMercadoVgvRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedChatRoute: AuthenticatedChatRouteWithChildren,
+  AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRoute,
+  AuthenticatedOverviewRoute: AuthenticatedOverviewRoute,
+  AuthenticatedFinanceiroBalancoRoute: AuthenticatedFinanceiroBalancoRoute,
+  AuthenticatedFinanceiroFluxoRoute: AuthenticatedFinanceiroFluxoRoute,
+  AuthenticatedFinanceiroLiquidezRoute: AuthenticatedFinanceiroLiquidezRoute,
+  AuthenticatedFinanceiroRentabilidadeRoute:
+    AuthenticatedFinanceiroRentabilidadeRoute,
+  AuthenticatedMercadoEstoqueRoute: AuthenticatedMercadoEstoqueRoute,
+  AuthenticatedMercadoObrasRoute: AuthenticatedMercadoObrasRoute,
+  AuthenticatedMercadoVendasRoute: AuthenticatedMercadoVendasRoute,
+  AuthenticatedMercadoVgvRoute: AuthenticatedMercadoVgvRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
