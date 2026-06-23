@@ -27,8 +27,8 @@ function Overview() {
       const [emp, vgv, fin, obras] = await Promise.all([
         supabase.from("empreendimentos").select("status"),
         (filters.empreendimentoId === "all"
-          ? supabase.from("vgv_vendas").select("vgv_lancado, vgv_vendido, periodo").order("periodo")
-          : supabase.from("vgv_vendas").select("vgv_lancado, vgv_vendido, periodo").eq("empreendimento_id", filters.empreendimentoId).order("periodo")),
+          ? supabase.from("vgv_vendas").select("vgv_lancado, vgv_vendido, mes_referencia").order("mes_referencia")
+          : supabase.from("vgv_vendas").select("vgv_lancado, vgv_vendido, mes_referencia").eq("empreendimento_id", filters.empreendimentoId).order("mes_referencia")),
         supabase.from("indicadores_financeiros").select("saldo_caixa, liquidez_corrente, margem_liquida_percentual, periodo").order("periodo", { ascending: false }).limit(6),
         supabase.from("andamento_obras").select("status"),
       ]);
