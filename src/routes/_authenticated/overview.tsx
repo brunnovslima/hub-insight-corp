@@ -132,14 +132,9 @@ function Overview() {
           <CardContent>
             <div className="text-3xl font-bold">{formatPercent(Number(finLatest?.margem_liquida_percentual || 0))}</div>
             <p className="text-sm text-muted-foreground mt-1">último trimestre</p>
-            <div className="mt-3">
-              <KpiCard
-                title="Tendência"
-                value=""
-                sparkline={sparkMargem}
-                className="border-0 shadow-none p-0 [&_h3]:hidden"
-              />
-            </div>
+            <p className="text-[10px] text-muted-foreground mt-3 uppercase tracking-wider">
+              Tendência: {sparkMargem.length > 1 && sparkMargem[sparkMargem.length - 1] >= sparkMargem[0] ? "↑ em alta" : "↓ em queda"}
+            </p>
           </CardContent>
         </Card>
       </div>
