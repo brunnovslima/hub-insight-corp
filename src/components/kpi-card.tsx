@@ -42,7 +42,7 @@ export function KpiCard({
       className={cn(
         "relative overflow-hidden border-border/60 transition-shadow hover:shadow-[var(--shadow-elegant)]",
         tone === "gold" && "border-gold/40 bg-gradient-to-br from-card to-gold/5",
-        tone === "primary" && "bg-[var(--gradient-primary)] text-primary-foreground border-0",
+        tone === "primary" && "bg-[var(--gradient-primary)] border-0",
         className,
       )}
     >
@@ -51,7 +51,7 @@ export function KpiCard({
           <CardTitle
             className={cn(
               "text-xs font-medium uppercase tracking-wider truncate",
-              tone === "primary" ? "text-primary-foreground/80" : "text-muted-foreground",
+              tone === "primary" ? "text-gold" : "text-muted-foreground",
             )}
           >
             {title}
@@ -60,7 +60,7 @@ export function KpiCard({
             <TooltipProvider delayDuration={150}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <button type="button" aria-label={`Sobre ${title}`} className="opacity-60 hover:opacity-100 transition-opacity">
+                  <button type="button" aria-label={`Sobre ${title}`} className={cn("opacity-60 hover:opacity-100 transition-opacity", tone === "primary" && "text-gold")}>
                     <Info className="h-3 w-3" />
                   </button>
                 </TooltipTrigger>
@@ -74,7 +74,7 @@ export function KpiCard({
       <CardContent>
         <div className="flex items-end justify-between gap-3">
           <div className="min-w-0">
-            <div className={cn("text-2xl font-bold tracking-tight truncate", tone === "primary" && "text-primary-foreground")}>{value}</div>
+            <div className={cn("text-2xl font-bold tracking-tight truncate", tone === "primary" && "text-gold")}>{value}</div>
             <div className="mt-1 flex items-center gap-1 text-xs">
               {delta != null && (
                 <span className={cn("inline-flex items-center gap-0.5 font-medium", deltaColor)}>
@@ -83,7 +83,7 @@ export function KpiCard({
                 </span>
               )}
               {hint && (
-                <span className={cn(tone === "primary" ? "text-primary-foreground/70" : "text-muted-foreground")}>{hint}</span>
+                <span className={cn(tone === "primary" ? "text-gold/80" : "text-muted-foreground")}>{hint}</span>
               )}
             </div>
           </div>
