@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Scale, TrendingDown, AlertCircle, Shield } from "lucide-react";
+import { Scale, TrendingDown, AlertCircle, Shield, Banknote, CreditCard, Percent } from "lucide-react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -54,27 +54,26 @@ function Page() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader className="pb-2"><CardTitle className="text-sm">Dívida Bruta</CardTitle></CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{formatBRL(Number(last?.divida_bruta ?? 0), { compact: true })}</p>
-            <p className="text-xs text-muted-foreground mt-1">total de obrigações financeiras</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2"><CardTitle className="text-sm">Dívida Líquida</CardTitle></CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{formatBRL(Number(last?.divida_liquida ?? 0), { compact: true })}</p>
-            <p className="text-xs text-muted-foreground mt-1">bruta - caixa e equivalentes</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2"><CardTitle className="text-sm">Endividamento Geral</CardTitle></CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{formatPercent(Number(last?.indice_endividamento_geral ?? 0))}</p>
-            <p className="text-xs text-muted-foreground mt-1">passivo / ativo total</p>
-          </CardContent>
-        </Card>
+        <KpiCard
+          title="Dívida Bruta"
+          value={formatBRL(Number(last?.divida_bruta ?? 0), { compact: true })}
+          hint="total de obrigações financeiras"
+          icon={<Banknote className="h-4 w-4" />}
+          tone="primary"
+        />
+        <KpiCard
+          title="Dívida Líquida"
+          value={formatBRL(Number(last?.divida_liquida ?? 0), { compact: true })}
+          hint="bruta - caixa e equivalentes"
+          icon={<CreditCard className="h-4 w-4" />}
+          tone="gold"
+        />
+        <KpiCard
+          title="Endividamento Geral"
+          value={formatPercent(Number(last?.indice_endividamento_geral ?? 0))}
+          hint="passivo / ativo total"
+          icon={<Percent className="h-4 w-4" />}
+        />
       </div>
 
       <Card>
