@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Cell, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, CartesianGrid, XAxis, YAxis, Legend } from "recharts";
+import { Landmark, Scale, Wallet } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { KpiCard } from "@/components/kpi-card";
 import { formatBRL, formatMonth, formatPercent } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/financeiro/balanco")({
@@ -42,9 +44,26 @@ function Page() {
     <div className="space-y-6">
       <PageHeader title="Balanço Patrimonial Resumido" description="Estrutura de ativo, passivo e patrimônio líquido" />
       <div className="grid gap-4 md:grid-cols-3">
-        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Ativo Total</CardTitle></CardHeader><CardContent><p className="text-2xl font-bold">{formatBRL(Number(last?.ativo_total ?? 0), { compact: true })}</p></CardContent></Card>
-        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Passivo Total</CardTitle></CardHeader><CardContent><p className="text-2xl font-bold">{formatBRL(Number(last?.passivo_total ?? 0), { compact: true })}</p></CardContent></Card>
-        <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Patrimônio Líquido</CardTitle></CardHeader><CardContent><p className="text-2xl font-bold text-gold">{formatBRL(Number(last?.patrimonio_liquido ?? 0), { compact: true })}</p></CardContent></Card>
+        <KpiCard
+          title="Ativo Total"
+          value={formatBRL(Number(last?.ativo_total ?? 0), { compact: true })}
+          icon={<Wallet className="h-4 w-4" />}
+          tone="primary"
+          description="Soma de ativos circulantes e não circulantes no último período."
+        />
+        <KpiCard
+          title="Passivo Total"
+          value={formatBRL(Number(last?.passivo_total ?? 0), { compact: true })}
+          icon={<Scale className="h-4 w-4" />}
+          description="Soma de obrigações de curto e longo prazo."
+        />
+        <KpiCard
+          title="Patrimônio Líquido"
+          value={formatBRL(Number(last?.patrimonio_liquido ?? 0), { compact: true })}
+          icon={<Landmark className="h-4 w-4" />}
+          tone="gold"
+          description="Capital próprio: ativo total menos passivo total."
+        />
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
