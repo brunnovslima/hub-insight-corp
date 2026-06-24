@@ -48,13 +48,13 @@ function Page() {
   return (
     <div className="space-y-6">
       <PageHeader title="Fluxo de Caixa" description="Entradas, saídas, queima e projeção" />
-      <Card className="bg-[var(--gradient-primary)] text-primary-foreground border-0">
+      <Card className="bg-[var(--gradient-primary)] text-gold border-0">
         <CardContent className="p-6">
           <div className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-md bg-gold/20 flex items-center justify-center"><Wallet className="h-6 w-6 text-gold" /></div>
             <div>
-              <p className="text-sm text-primary-foreground/70 uppercase tracking-wider">Saldo de Caixa Atual</p>
-              <p className="text-4xl font-bold mt-1">{formatBRL(caixa)}</p>
+              <p className="text-sm text-gold/80 uppercase tracking-wider">Saldo de Caixa Atual</p>
+              <p className="text-4xl font-bold mt-1 text-gold">{formatBRL(caixa)}</p>
             </div>
           </div>
         </CardContent>
