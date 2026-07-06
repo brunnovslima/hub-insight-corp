@@ -114,6 +114,39 @@ export type Database = {
         }
         Relationships: []
       }
+      empresas: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          logo_url: string | null
+          nome: string
+          settings: Json
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          nome: string
+          settings?: Json
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          nome?: string
+          settings?: Json
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       empreendimentos: {
         Row: {
           cidade: string | null
@@ -121,6 +154,7 @@ export type Database = {
           data_entrega_prevista: string | null
           data_entrega_real: string | null
           data_lancamento: string | null
+          empresa_id: string
           estado: string | null
           id: string
           nome: string
@@ -134,6 +168,7 @@ export type Database = {
           data_entrega_prevista?: string | null
           data_entrega_real?: string | null
           data_lancamento?: string | null
+          empresa_id: string
           estado?: string | null
           id?: string
           nome: string
@@ -147,6 +182,7 @@ export type Database = {
           data_entrega_prevista?: string | null
           data_entrega_real?: string | null
           data_lancamento?: string | null
+          empresa_id?: string
           estado?: string | null
           id?: string
           nome?: string
@@ -154,12 +190,21 @@ export type Database = {
           tipo?: string | null
           total_unidades?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "empreendimentos_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       fluxo_caixa_projecao: {
         Row: {
           cenario: string | null
           created_at: string
+          empresa_id: string
           entradas_previstas: number | null
           id: string
           mes_referencia: string | null
@@ -169,6 +214,7 @@ export type Database = {
         Insert: {
           cenario?: string | null
           created_at?: string
+          empresa_id: string
           entradas_previstas?: number | null
           id?: string
           mes_referencia?: string | null
@@ -178,11 +224,41 @@ export type Database = {
         Update: {
           cenario?: string | null
           created_at?: string
+          empresa_id?: string
           entradas_previstas?: number | null
           id?: string
           mes_referencia?: string | null
           saidas_previstas?: number | null
           saldo_projetado?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fluxo_caixa_projecao_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      response_cache: {
+        Row: {
+          cache_key: string
+          created_at: string
+          expires_at: string
+          response: string
+        }
+        Insert: {
+          cache_key: string
+          created_at?: string
+          expires_at: string
+          response: string
+        }
+        Update: {
+          cache_key?: string
+          created_at?: string
+          expires_at?: string
+          response?: string
         }
         Relationships: []
       }
@@ -195,6 +271,7 @@ export type Database = {
           cobertura_juros: number | null
           cpv: number | null
           created_at: string
+          empresa_id: string
           divida_bruta: number | null
           divida_liquida: number | null
           ebitda: number | null
@@ -229,6 +306,7 @@ export type Database = {
           cobertura_juros?: number | null
           cpv?: number | null
           created_at?: string
+          empresa_id: string
           divida_bruta?: number | null
           divida_liquida?: number | null
           ebitda?: number | null
@@ -263,6 +341,7 @@ export type Database = {
           cobertura_juros?: number | null
           cpv?: number | null
           created_at?: string
+          empresa_id?: string
           divida_bruta?: number | null
           divida_liquida?: number | null
           ebitda?: number | null
@@ -289,28 +368,151 @@ export type Database = {
           saldo_caixa?: number | null
           tipo_periodo?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "indicadores_financeiros_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integracoes: {
+        Row: {
+          active: boolean
+          config: Json
+          created_at: string
+          empresa_id: string
+          id: string
+          provider: string
+          tipo: string
+          ultima_sincronizacao: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          config?: Json
+          created_at?: string
+          empresa_id: string
+          id?: string
+          provider: string
+          tipo: string
+          ultima_sincronizacao?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          config?: Json
+          created_at?: string
+          empresa_id?: string
+          id?: string
+          provider?: string
+          tipo?: string
+          ultima_sincronizacao?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integracoes_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
           created_at: string
           email: string
+          empresa_id: string
           full_name: string | null
           id: string
         }
         Insert: {
           created_at?: string
           email: string
+          empresa_id: string
           full_name?: string | null
           id: string
         }
         Update: {
           created_at?: string
           email?: string
+          empresa_id?: string
           full_name?: string | null
           id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sync_logs: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          empresa_id: string
+          erro_texto: string | null
+          id: string
+          initiated_by: string
+          integracao_id: string | null
+          records_atualizados: number
+          records_criados: number
+          started_at: string
+          status: string
+          summary: Json | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          empresa_id: string
+          erro_texto?: string | null
+          id?: string
+          initiated_by?: string
+          integracao_id?: string | null
+          records_atualizados?: number
+          records_criados?: number
+          started_at?: string
+          status: string
+          summary?: Json | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          empresa_id?: string
+          erro_texto?: string | null
+          id?: string
+          initiated_by?: string
+          integracao_id?: string | null
+          records_atualizados?: number
+          records_criados?: number
+          started_at?: string
+          status?: string
+          summary?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sync_logs_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sync_logs_integracao_id_fkey"
+            columns: ["integracao_id"]
+            isOneToOne: false
+            referencedRelation: "integracoes"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

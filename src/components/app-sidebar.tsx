@@ -13,6 +13,7 @@ import {
   Settings,
   LogOut,
   Building2,
+  Building,
 } from "lucide-react";
 import {
   Sidebar,
@@ -61,7 +62,8 @@ const ai: NavItem[] = [
   { title: "Chat IA", url: "/chat", icon: Bot, roles: ["admin", "diretor", "analista"] },
 ];
 
-const settings: NavItem[] = [
+const admin: NavItem[] = [
+  { title: "Empresas", url: "/admin/empresas", icon: Building, roles: ["admin"] },
   { title: "Configurações", url: "/configuracoes", icon: Settings, roles: ["admin"] },
 ];
 
@@ -123,7 +125,7 @@ export function AppSidebar() {
         {renderGroup("Mercado", mercado)}
         {renderGroup("Financeiro", financeiro)}
         {renderGroup("Assistente", ai)}
-        {renderGroup("Admin", settings)}
+        {renderGroup("Admin", admin)}
       </SidebarContent>
       <SidebarFooter className="border-t border-sidebar-border">
         {!collapsed && user && (

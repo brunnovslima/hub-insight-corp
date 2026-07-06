@@ -1,0 +1,9 @@
+name = "hub-insight-corp"
+compatibility_date = "2026-07-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "dist"
+
+# Variáveis de ambiente — configurar como Secrets no Cloudflare Pages Dashboard
+# CLOUDFLARE_ACCOUNT_ID  — ID da conta Cloudflare (Painel > Workers > AI)
+# CLOUDFLARE_API_TOKEN   — API token com permissão "Workers AI:Run"
+# GEMINI_API_KEY         — Fallback caso Cloudflare AI falhe (opcional)

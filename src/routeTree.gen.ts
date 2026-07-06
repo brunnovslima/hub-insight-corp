@@ -25,6 +25,7 @@ import { Route as AuthenticatedFinanceiroLiquidezRouteImport } from './routes/_a
 import { Route as AuthenticatedFinanceiroFluxoRouteImport } from './routes/_authenticated/financeiro.fluxo'
 import { Route as AuthenticatedFinanceiroBalancoRouteImport } from './routes/_authenticated/financeiro.balanco'
 import { Route as AuthenticatedChatThreadIdRouteImport } from './routes/_authenticated/chat.$threadId'
+import { Route as AuthenticatedAdminEmpresasRouteImport } from './routes/_authenticated/admin.empresas'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -114,6 +115,12 @@ const AuthenticatedChatThreadIdRoute =
     path: '/$threadId',
     getParentRoute: () => AuthenticatedChatRoute,
   } as any)
+const AuthenticatedAdminEmpresasRoute =
+  AuthenticatedAdminEmpresasRouteImport.update({
+    id: '/admin/empresas',
+    path: '/admin/empresas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/chat': typeof AuthenticatedChatRouteWithChildren
   '/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/overview': typeof AuthenticatedOverviewRoute
+  '/admin/empresas': typeof AuthenticatedAdminEmpresasRoute
   '/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
   '/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
   '/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
@@ -137,6 +145,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/overview': typeof AuthenticatedOverviewRoute
+  '/admin/empresas': typeof AuthenticatedAdminEmpresasRoute
   '/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
   '/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
   '/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
@@ -156,6 +165,7 @@ export interface FileRoutesById {
   '/_authenticated/chat': typeof AuthenticatedChatRouteWithChildren
   '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/_authenticated/overview': typeof AuthenticatedOverviewRoute
+  '/_authenticated/admin/empresas': typeof AuthenticatedAdminEmpresasRoute
   '/_authenticated/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
   '/_authenticated/financeiro/balanco': typeof AuthenticatedFinanceiroBalancoRoute
   '/_authenticated/financeiro/fluxo': typeof AuthenticatedFinanceiroFluxoRoute
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/configuracoes'
     | '/overview'
+    | '/admin/empresas'
     | '/chat/$threadId'
     | '/financeiro/balanco'
     | '/financeiro/fluxo'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/configuracoes'
     | '/overview'
+    | '/admin/empresas'
     | '/chat/$threadId'
     | '/financeiro/balanco'
     | '/financeiro/fluxo'
@@ -209,6 +221,7 @@ export interface FileRouteTypes {
     | '/_authenticated/chat'
     | '/_authenticated/configuracoes'
     | '/_authenticated/overview'
+    | '/_authenticated/admin/empresas'
     | '/_authenticated/chat/$threadId'
     | '/_authenticated/financeiro/balanco'
     | '/_authenticated/financeiro/fluxo'
@@ -341,6 +354,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedChatThreadIdRouteImport
       parentRoute: typeof AuthenticatedChatRoute
     }
+    '/_authenticated/admin/empresas': {
+      id: '/_authenticated/admin/empresas'
+      path: '/admin/empresas'
+      fullPath: '/admin/empresas'
+      preLoaderRoute: typeof AuthenticatedAdminEmpresasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -361,6 +381,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedChatRoute: typeof AuthenticatedChatRouteWithChildren
   AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRoute
   AuthenticatedOverviewRoute: typeof AuthenticatedOverviewRoute
+  AuthenticatedAdminEmpresasRoute: typeof AuthenticatedAdminEmpresasRoute
   AuthenticatedFinanceiroBalancoRoute: typeof AuthenticatedFinanceiroBalancoRoute
   AuthenticatedFinanceiroFluxoRoute: typeof AuthenticatedFinanceiroFluxoRoute
   AuthenticatedFinanceiroLiquidezRoute: typeof AuthenticatedFinanceiroLiquidezRoute
@@ -375,6 +396,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedChatRoute: AuthenticatedChatRouteWithChildren,
   AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRoute,
   AuthenticatedOverviewRoute: AuthenticatedOverviewRoute,
+  AuthenticatedAdminEmpresasRoute: AuthenticatedAdminEmpresasRoute,
   AuthenticatedFinanceiroBalancoRoute: AuthenticatedFinanceiroBalancoRoute,
   AuthenticatedFinanceiroFluxoRoute: AuthenticatedFinanceiroFluxoRoute,
   AuthenticatedFinanceiroLiquidezRoute: AuthenticatedFinanceiroLiquidezRoute,
@@ -397,3 +419,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
